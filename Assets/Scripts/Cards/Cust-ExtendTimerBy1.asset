@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb434d02d6efb6a4f91f60ae90bfbd78, type: 3}
+  m_Name: Cust-ExtendTimerBy1
+  m_EditorClassIdentifier: 
+  cardName: 
+  cardImage: {fileID: 0}
+  cardCost: 0
+  cardText: Extends the tea timer by 1
+  enemyIcon: {fileID: 7323787663555303463, guid: 6e512129a6b878c49992b1cfaa226122, type: 3}
+  enemyIconColor: {r: 0.30588236, g: 0.08610717, b: 0.08610717, a: 1}
+  targetType: 2
+  effects:
+  - {fileID: 11400000, guid: 0fd744aa982a69441a58f7bc3d02744b, type: 2}
+  cardLayout: {fileID: 1887934998693021256, guid: f0a2413996607374e8b44754d1337c4f, type: 3}
+  shopCost: 0

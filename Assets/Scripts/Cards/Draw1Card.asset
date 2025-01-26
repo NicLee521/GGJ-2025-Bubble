@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb434d02d6efb6a4f91f60ae90bfbd78, type: 3}
+  m_Name: Draw1Card
+  m_EditorClassIdentifier: 
+  cardName: Extra hands
+  cardImage: {fileID: 6751002202477829170, guid: 22d56413a281de34f89496043f2dbce8, type: 3}
+  cardCost: 1
+  cardText: Draws a card from the deck
+  enemyIcon: {fileID: 0}
+  enemyIconColor: {r: 0, g: 0, b: 0, a: 0}
+  effects:
+  - {fileID: 11400000, guid: 41c7d217857e3424a9b3e85e73a20900, type: 2}
+  cardLayout: {fileID: 1887934998693021256, guid: f0a2413996607374e8b44754d1337c4f, type: 3}
+  shopCost: 5

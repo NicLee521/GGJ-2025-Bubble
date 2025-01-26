@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kindness_0: -3835353968057215410
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

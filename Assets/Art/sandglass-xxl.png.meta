@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sandglass-xxl_0: 7323787663555303463
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

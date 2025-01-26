@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb434d02d6efb6a4f91f60ae90bfbd78, type: 3}
   m_Name: Remove5Rage
   m_EditorClassIdentifier: 
-  cardName: Free Coupon
+  cardName: Free Coupon (Upgraded)
   cardImage: {fileID: -1497518201202162212, guid: ba53575997e81a246846fc0b07df9e95, type: 3}
   cardCost: 1
   cardText: Reduce current customer rage by 5

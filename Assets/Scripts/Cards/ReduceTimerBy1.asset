@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Sugar Rush
   cardImage: {fileID: -3413006870710782370, guid: d4369ea129b717f4da29153146e37a1f, type: 3}
-  cardCost: 1
+  cardCost: 2
   cardText: Reduce tea timer by 1
   enemyIcon: {fileID: 0}
   enemyIconColor: {r: 0, g: 0, b: 0, a: 0}
   effects:
   - {fileID: 11400000, guid: 8b175b6ba17068844881b9ae28746d1c, type: 2}
   cardLayout: {fileID: 1887934998693021256, guid: f0a2413996607374e8b44754d1337c4f, type: 3}
-  shopCost: 0
+  shopCost: 10

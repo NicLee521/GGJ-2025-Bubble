@@ -8,7 +8,7 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour {
     
-    PlayerStats stats;
+    public PlayerStats stats;
     public List<CardObject> hand = new List<CardObject>();
     private TargetSelector targetSelector;
     private TurnController turnController;
@@ -20,6 +20,13 @@ public class PlayerController : MonoBehaviour {
     public TextMeshProUGUI dayOverCurrencyText;
     public TextMeshProUGUI dayOverHealthText;
 
+    public TextMeshProUGUI daysText;
+
+    public AudioClip shuffleSound;
+    public AudioClip cardPlaySound;
+    public AudioClip endTurnSound;
+    private AudioSource audioSource;
+
     
     void Start(){
         stats = PlayerStats.instance;
@@ -28,6 +35,12 @@ public class PlayerController : MonoBehaviour {
         ResetEnergy();
         targetSelector = GameObject.Find("TargetSelector").GetComponent<TargetSelector>();
         turnController = GameObject.Find("TurnController").GetComponent<TurnController>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
         TurnController.OnTurnChanged += OnTurnChanged;
         ReDrawUI();
         DrawHand();
@@ -54,10 +67,12 @@ public class PlayerController : MonoBehaviour {
         if(turnController.currentTurn != TurnState.PlayerTurn) {
             return;
         }
+        audioSource.PlayOneShot(endTurnSound);
         turnController.EndPlayerTurn();
     }
 
     public void DrawHand() {
+        audioSource.PlayOneShot(shuffleSound);
         DrawCards(stats.handSize);
     }
 
@@ -80,11 +95,12 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Cant Play");
             return;
         }
+        audioSource.PlayOneShot(cardPlaySound);
+        updateEnergy(cardToPlay.cardCost * -1);
         Dictionary<TargetType,GameObject> targets = targetSelector.GetTargets();
         foreach (CardEffect effect in cardToPlay.effects){
             effect.ApplyEffect(targets);
         }
-        updateEnergy(cardToPlay.cardCost * -1);
         stats.deck.DiscardCard(cardToPlay);
         hand.Remove(cardObject);
         Destroy(cardObject.gameObject);
@@ -113,6 +129,7 @@ public class PlayerController : MonoBehaviour {
         healthSlider.value = (float)stats.health / stats.maxHealth;
         dayOverCurrencyText.text = "Current Currency: $" + stats.currency.ToString();
         dayOverHealthText.text = "Current Health: " + stats.health.ToString() + "/" + stats.maxHealth.ToString();
+        daysText.text = stats.currentDay.ToString() + " of 2 days";
     }
 
     void ResetEnergy() {
@@ -153,6 +170,7 @@ public class PlayerController : MonoBehaviour {
 
     public void AddCurrency(int currencyToAdd) {
         stats.currency += currencyToAdd;
+        ReDrawUI();
     }
 
     public void DrawCards(int cardsToDraw) {

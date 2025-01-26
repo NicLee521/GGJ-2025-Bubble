@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public enum TurnState
 {
@@ -15,7 +16,7 @@ public class TurnController : MonoBehaviour
     private int customerTurnsToSkip = 0;
     private CustomerController customerController;
     public TextMeshProUGUI turnTimerText;
-
+    public GameObject bobaImage;
     public TurnState currentTurn = TurnState.PlayerTurn;
     
     public delegate void TurnChanged(TurnState newTurn);
@@ -25,6 +26,7 @@ public class TurnController : MonoBehaviour
         customerController = GameObject.Find("CustomerController").GetComponent<CustomerController>();
         turnTimer = timerSetDefault;
         turnTimerText.text = turnTimer.ToString();
+        bobaImage.SetActive(false);
     }
 
     public void EndPlayerTurn() {
@@ -35,15 +37,22 @@ public class TurnController : MonoBehaviour
             turnTimer -= 1;
             turnTimerText.text = turnTimer.ToString();
             if(turnTimer == 0) {
-                customerController.NextCustomer();
-                turnTimer = timerSetDefault;
-                turnTimerText.text = turnTimer.ToString();
+                StartCoroutine(FlickerBoba());
             }
             return;
         }
         currentTurn = TurnState.EnemyTurn;
         OnTurnChanged?.Invoke(currentTurn);
         StartEnemyTurn();
+    }
+
+    IEnumerator FlickerBoba() {
+        bobaImage.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        bobaImage.SetActive(false);
+        customerController.NextCustomer();
+        turnTimer = timerSetDefault;
+        turnTimerText.text = turnTimer.ToString();
     }
 
     public void StartEnemyTurn()
@@ -59,9 +68,7 @@ public class TurnController : MonoBehaviour
         turnTimer -= 1;
         turnTimerText.text = turnTimer.ToString();
         if(turnTimer == 0) {
-            customerController.NextCustomer();
-            turnTimer = timerSetDefault;
-            turnTimerText.text = turnTimer.ToString();
+            StartCoroutine(FlickerBoba());
         }
         OnTurnChanged?.Invoke(currentTurn);
         Debug.Log("Player's turn!");
@@ -71,9 +78,9 @@ public class TurnController : MonoBehaviour
         turnTimer -= turnsToReduceBy;
         turnTimerText.text = turnTimer.ToString();
         if(turnTimer == 0) {
-            customerController.NextCustomer();
-            turnTimer = timerSetDefault;
-            turnTimerText.text = turnTimer.ToString();
+            StartCoroutine(FlickerBoba());
+            OnTurnChanged?.Invoke(TurnState.EnemyTurn);
+            OnTurnChanged?.Invoke(currentTurn);
         }
     }
 

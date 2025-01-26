@@ -11,6 +11,7 @@ public class ShopController : MonoBehaviour
 
     public int amountToHealPlayerBy = 5;
     public int costOfHeal = 20;
+    public Button healButton;
 
     void Start() {
         playerController = GameObject.Find("PlayerController").GetComponent<PlayerController>();
@@ -57,6 +58,7 @@ public class ShopController : MonoBehaviour
     public void HealPlayer() {
         if(playerController.PayCurrency(costOfHeal)) {
             playerController.HealPlayer(amountToHealPlayerBy);
+            healButton.interactable = false;
         }
     }
 }

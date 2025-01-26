@@ -10,6 +10,7 @@ public class CustomerObject : MonoBehaviour
     public int maxRage;
     private TargetSelector targetSelector;
     private CustomerController customerController;
+    private PlayerController playerController;
     private Image telegraphImage;
     private Deck deck = new Deck();
     private Card cardToPlay;
@@ -19,7 +20,11 @@ public class CustomerObject : MonoBehaviour
     public TextMeshProUGUI maxRageText;
 
     void Awake() {
-        maxRage = UnityEngine.Random.Range(15,25);
+        maxRage = UnityEngine.Random.Range(8,12);
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if(playerController.stats.currentDay == 2) {
+            maxRage = UnityEngine.Random.Range(6,10);
+        }
         targetSelector = GameObject.Find("TargetSelector").GetComponent<TargetSelector>();
         telegraphImage = transform.Find("TelegraphIcon").gameObject.GetComponent<Image>();
         tooltipPanel.SetActive(false);

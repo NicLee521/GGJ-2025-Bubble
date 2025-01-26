@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Kill them with kindness
   cardImage: {fileID: -3835353968057215410, guid: 5f9741edb610b8344a6f857fb68646b1, type: 3}
-  cardCost: 1
+  cardCost: 3
   cardText: The current customer loses their next turn
   enemyIcon: {fileID: 0}
   enemyIconColor: {r: 0, g: 0, b: 0, a: 0}
   effects:
   - {fileID: 11400000, guid: da04dfc4015a57244aac8baf4d2e42e2, type: 2}
   cardLayout: {fileID: 1887934998693021256, guid: f0a2413996607374e8b44754d1337c4f, type: 3}
-  shopCost: 5
+  shopCost: 10

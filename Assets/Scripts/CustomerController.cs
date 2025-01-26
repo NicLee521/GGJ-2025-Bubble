@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
+using TMPro;
 
 public class CustomerController : MonoBehaviour
 {
@@ -16,12 +13,19 @@ public class CustomerController : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject dayOverCanvas;
     public GameObject loseCanvas;
+    public GameObject completeEnd;
     private PlayerController playerController;
+    public TextMeshProUGUI customersLeft;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         currentCustomer = GetFirstCustomerInQueue();
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if(playerController.stats.currentDay == 2) {
+            customerQueue.Add(customerQueue[0]);
+            customerQueue.Add(customerQueue[0]);
+        }
+        customersLeft.text = customerQueue.Count.ToString();
     }
 
     public void NextCustomer() {
@@ -32,20 +36,25 @@ public class CustomerController : MonoBehaviour
             StartCoroutine(WaitBeforeNextCustomer());
             return;
         }
+        if (playerController.stats.currentDay == 2) {
+            CompleteEnd();
+            return;
+        }
         DayOver();
     }
 
     private IEnumerator WaitBeforeNextCustomer() {
-        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        yield return new WaitForSeconds(1.5f);
         currentCustomer = GetFirstCustomerInQueue();
     }   
 
     private CustomerObject GetFirstCustomerInQueue() {
         currentCustomerGameObject = Instantiate(customerQueue[0], uiCanvas.transform);
-        currentCustomerGameObject.GetComponent<UnityEngine.UI.Image>().sprite = customerSprites[UnityEngine.Random.Range(0, customerSprites.Count)];
+        currentCustomerGameObject.GetComponent<UnityEngine.UI.Image>().sprite = customerSprites[Random.Range(0, customerSprites.Count)];
         CustomerObject firstCustomer = currentCustomerGameObject.GetComponent<CustomerObject>();
         firstCustomer.SetUpCustomer(this);
         customerQueue.RemoveAt(0);
+        customersLeft.text = customerQueue.Count.ToString();
         return firstCustomer;
     }
 
@@ -70,5 +79,11 @@ public class CustomerController : MonoBehaviour
     public void Lose() {
         uiCanvas.SetActive(false);
         loseCanvas.SetActive(true);
+    }
+
+    public void CompleteEnd() {
+        playerController.DiscardHand();
+        uiCanvas.SetActive(false);
+        completeEnd.SetActive(true);
     }
 }

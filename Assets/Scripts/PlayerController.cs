@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
-using System.Linq; // For LINQ methods
+using System.Linq;
 
 public class PlayerController : MonoBehaviour {
     
@@ -13,11 +14,17 @@ public class PlayerController : MonoBehaviour {
     private TurnController turnController;
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI healthText;
+    public Slider healthSlider;
     public TextMeshProUGUI currencyText;
     public TextMeshProUGUI shieldText;
+    public TextMeshProUGUI dayOverCurrencyText;
+    public TextMeshProUGUI dayOverHealthText;
+
     
     void Start(){
         stats = PlayerStats.instance;
+        stats.deck.Reshuffle();
+        stats.deck.Shuffle();
         ResetEnergy();
         targetSelector = GameObject.Find("TargetSelector").GetComponent<TargetSelector>();
         turnController = GameObject.Find("TurnController").GetComponent<TurnController>();
@@ -100,9 +107,12 @@ public class PlayerController : MonoBehaviour {
 
     void ReDrawUI() {
         energyText.text = stats.energy.ToString();
-        healthText.text = stats.health.ToString();
-        currencyText.text = stats.currency.ToString();
+        healthText.text = stats.health.ToString() + "/" + stats.maxHealth;
+        currencyText.text = "$" + stats.currency.ToString();
         shieldText.text = stats.shieldAmount.ToString();
+        healthSlider.value = (float)stats.health / stats.maxHealth;
+        dayOverCurrencyText.text = "Current Currency: $" + stats.currency.ToString();
+        dayOverHealthText.text = "Current Health: " + stats.health.ToString() + "/" + stats.maxHealth.ToString();
     }
 
     void ResetEnergy() {
@@ -128,11 +138,13 @@ public class PlayerController : MonoBehaviour {
             return false;
         }
         stats.currency -= currencyOwed;
+        ReDrawUI();
         return true;
     }
 
     public void HealPlayer(int healthToAdd) {
         stats.health = Math.Min(stats.health + healthToAdd, stats.maxHealth);
+        ReDrawUI();
     }
 
     public void AddCardToDeck(Card card) {

@@ -16,10 +16,12 @@ public class CustomerController : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject dayOverCanvas;
     public GameObject loseCanvas;
+    private PlayerController playerController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         currentCustomer = GetFirstCustomerInQueue();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     public void NextCustomer() {
@@ -60,6 +62,7 @@ public class CustomerController : MonoBehaviour
     }
 
     public void DayOver() {
+        playerController.DiscardHand();
         uiCanvas.SetActive(false);
         dayOverCanvas.SetActive(true);
     }

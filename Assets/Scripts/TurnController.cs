@@ -34,6 +34,11 @@ public class TurnController : MonoBehaviour
             customerTurnsToSkip--;
             turnTimer -= 1;
             turnTimerText.text = turnTimer.ToString();
+            if(turnTimer == 0) {
+                customerController.NextCustomer();
+                turnTimer = timerSetDefault;
+                turnTimerText.text = turnTimer.ToString();
+            }
             return;
         }
         currentTurn = TurnState.EnemyTurn;

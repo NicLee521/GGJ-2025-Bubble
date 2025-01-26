@@ -47,6 +47,8 @@ public class ShopController : MonoBehaviour
             cardTextField.GetComponent<TMP_Text>().SetText(card.cardText);
             GameObject cardImageField = slot.transform.Find("Card Image")?.gameObject;
             cardImageField.GetComponent<Image>().sprite = card.cardImage;
+            GameObject priceField = slot.transform.Find("Price")?.gameObject;
+            priceField.GetComponent<TMP_Text>().SetText("$"+card.shopCost.ToString());
             ShopObject cardObject = slot.AddComponent<ShopObject>();
             cardObject.thisCard = card;
         }

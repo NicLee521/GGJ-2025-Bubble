@@ -23,5 +23,6 @@ public class PlayerStats : MonoBehaviour {
         health = maxHealth;
         energy = maxEnergy;
         deck = new Deck(startingDeck);
+        deck.Shuffle();
     }
 }

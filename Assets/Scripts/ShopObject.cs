@@ -13,6 +13,7 @@ public class ShopObject : MonoBehaviour, IPointerClickHandler {
     public void OnPointerClick(PointerEventData eventData) {
         if (playerController.PayCurrency(thisCard.shopCost)) {
             playerController.AddCardToDeck(thisCard);
+            Destroy(gameObject);
         }
     }
 }
